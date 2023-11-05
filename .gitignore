@@ -1,0 +1,34 @@
+dist/
+deploy_versions/
+.temp/
+.rn_temp/
+node_modules/
+.swc
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# OS
+.DS_Store
+
+# IDEs and editors
+/.idea
+.project
+.vscode
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+*.code-workspace
+
+# local env files
+.env*.local
+*.rest
+*.http
