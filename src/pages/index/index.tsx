@@ -3,13 +3,12 @@ import { useLoad } from '@tarojs/taro'
 import './index.scss'
 
 export default function Index() {
-
   useLoad(() => {
     console.log('Page loaded.')
   })
 
   return (
-    <View className='index'>
+    <View className="index">
       <Text>Hello world!</Text>
     </View>
   )
