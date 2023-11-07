@@ -1,7 +1,7 @@
 {
   "miniprogramRoot": "./dist",
-  "projectname": "taro-starter",
-  "description": "taro-starter",
+  "projectname": "taro-react-starter",
+  "description": "taro-react-starter",
   "appid": "touristappid",
   "setting": {
     "urlCheck": true,

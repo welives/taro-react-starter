@@ -1,3 +1,4 @@
+import path from 'node:path'
 import { defineConfig, type UserConfigExport } from '@tarojs/cli'
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin'
 import { UnifiedWebpackPluginV5 } from 'weapp-tailwindcss/webpack'
@@ -9,9 +10,16 @@ const WeappTailwindcssDisabled = ['h5', 'rn'].includes(process.env.TARO_ENV)
 // @ts-ignore
 export default defineConfig(async (merge, { command, mode }) => {
   const baseConfig: UserConfigExport = {
-    projectName: 'taro-starter',
+    projectName: 'taro-react-starter',
     date: '2023-11-5',
-    designWidth: 750,
+    designWidth: (input: any) => {
+      // 配置 NutUI 375 尺寸
+      if (input?.file?.replace(/\\+/g, '/').indexOf('@nutui') > -1) {
+        return 375
+      }
+      // 全局使用 Taro 默认的 750 尺寸
+      return 750
+    },
     deviceRatio: {
       640: 2.34 / 2,
       750: 1,
@@ -20,7 +28,13 @@ export default defineConfig(async (merge, { command, mode }) => {
     },
     sourceRoot: 'src',
     outputRoot: 'dist',
-    plugins: [],
+    plugins: ['@tarojs/plugin-html'],
+    alias: {
+      '@': path.resolve(__dirname, '../src'),
+    },
+    sass: {
+      data: '@import "@nutui/nutui-react-taro/dist/styles/variables.scss";',
+    },
     defineConstants: {},
     copy: {
       patterns: [],
@@ -35,7 +49,9 @@ export default defineConfig(async (merge, { command, mode }) => {
       postcss: {
         pxtransform: {
           enable: true,
-          config: {},
+          config: {
+            selectorBlackList: ['nut-'],
+          },
         },
         url: {
           enable: true,
@@ -66,6 +82,7 @@ export default defineConfig(async (merge, { command, mode }) => {
     h5: {
       publicPath: '/',
       staticDirectory: 'static',
+      esnextModules: ['@nutui/nutui-react-taro'],
       output: {
         filename: 'js/[name].[hash:8].js',
         chunkFilename: 'js/[name].[chunkhash:8].js',
@@ -78,6 +95,9 @@ export default defineConfig(async (merge, { command, mode }) => {
       postcss: {
         pxtransform: {
           enable: true,
+          config: {
+            selectorBlackList: ['nut-'],
+          },
         },
         autoprefixer: {
           enable: true,

@@ -1,8 +1,8 @@
 {
-  "name": "taro-starter",
+  "name": "taro-react-starter",
   "version": "1.0.0",
   "private": true,
-  "description": "taro-starter",
+  "description": "taro-react-starter",
   "templateInfo": {
     "name": "default",
     "typescript": true,
@@ -38,9 +38,11 @@
   "author": "",
   "dependencies": {
     "@babel/runtime": "^7.21.5",
+    "@nutui/nutui-react-taro": "^2.0.23",
     "@tarojs/components": "3.6.18",
     "@tarojs/helper": "3.6.18",
     "@tarojs/plugin-framework-react": "3.6.18",
+    "@tarojs/plugin-html": "^3.6.18",
     "@tarojs/plugin-platform-alipay": "3.6.18",
     "@tarojs/plugin-platform-h5": "3.6.18",
     "@tarojs/plugin-platform-jd": "3.6.18",
@@ -52,8 +54,10 @@
     "@tarojs/runtime": "3.6.18",
     "@tarojs/shared": "3.6.18",
     "@tarojs/taro": "3.6.18",
+    "immer": "^10.0.3",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react-dom": "^18.0.0",
+    "zustand": "^4.4.6"
   },
   "devDependencies": {
     "@babel/core": "^7.8.0",
@@ -68,6 +72,7 @@
     "@types/webpack-env": "^1.13.6",
     "@typescript-eslint/eslint-plugin": "^6.2.0",
     "@typescript-eslint/parser": "^6.2.0",
+    "babel-plugin-import": "^1.13.8",
     "babel-preset-taro": "3.6.18",
     "eslint": "^8.12.0",
     "eslint-config-prettier": "^9.0.0",
