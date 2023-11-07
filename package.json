@@ -1,8 +1,18 @@
 {
   "name": "taro-react-starter",
   "version": "1.0.0",
-  "private": true,
-  "description": "taro-react-starter",
+  "description": "开箱即用的基于Taro3 + React + Zustand + TailwindCSS + TypeScript的模板",
+  "keywords": [
+    "Taro3",
+    "React",
+    "Zustand",
+    "TailwindCSS",
+    "TypeScript",
+    "ESLint",
+    "Prettier"
+  ],
+  "license": "MIT",
+  "author": "welives",
   "templateInfo": {
     "name": "default",
     "typescript": true,
@@ -35,9 +45,9 @@
     "Android >= 4.1",
     "ios >= 8"
   ],
-  "author": "",
   "dependencies": {
     "@babel/runtime": "^7.21.5",
+    "@nutui/icons-react-taro": "^0.0.1",
     "@nutui/nutui-react-taro": "^2.0.23",
     "@tarojs/components": "3.6.18",
     "@tarojs/helper": "3.6.18",

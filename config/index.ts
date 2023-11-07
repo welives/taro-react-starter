@@ -43,7 +43,7 @@ export default defineConfig(async (merge, { command, mode }) => {
     framework: 'react',
     compiler: 'webpack5',
     cache: {
-      enable: true, // Webpack 持久化缓存配置，建议开启。默认配置请参考：https://docs.taro.zone/docs/config-detail#cache
+      enable: false, // Webpack 持久化缓存配置，建议开启。默认配置请参考：https://docs.taro.zone/docs/config-detail#cache
     },
     mini: {
       postcss: {
@@ -68,21 +68,21 @@ export default defineConfig(async (merge, { command, mode }) => {
         },
       },
       webpackChain(chain) {
-        chain.resolve.plugin('tsconfig-paths').use(TsconfigPathsPlugin),
-          chain.merge({
-            plugin: {
-              install: {
-                plugin: UnifiedWebpackPluginV5,
-                args: [{ appType: 'taro', disabled: WeappTailwindcssDisabled }],
-              },
+        chain.resolve.plugin('tsconfig-paths').use(TsconfigPathsPlugin)
+        chain.merge({
+          plugin: {
+            install: {
+              plugin: UnifiedWebpackPluginV5,
+              args: [{ appType: 'taro', disabled: WeappTailwindcssDisabled }],
             },
-          })
+          },
+        })
       },
     },
     h5: {
       publicPath: '/',
       staticDirectory: 'static',
-      esnextModules: ['@nutui/nutui-react-taro'],
+      esnextModules: ['nutui-react-taro', 'icons-react-taro'],
       output: {
         filename: 'js/[name].[hash:8].js',
         chunkFilename: 'js/[name].[chunkhash:8].js',
