@@ -1,7 +1,8 @@
+const pages = ['pages/index/index', 'pages/blank/index', 'pages/home/index', 'pages/profile/index']
 export default defineAppConfig({
   animation: true,
-  entryPagePath: 'pages/index/index',
-  pages: ['pages/index/index', 'pages/home/index', 'pages/profile/index'],
+  entryPagePath: 'pages/blank/index',
+  pages,
   tabBar: {
     color: '#666666',
     selectedColor: '#4965f2',
