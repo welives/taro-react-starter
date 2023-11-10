@@ -55,7 +55,7 @@ class AxiosRequest {
   private static _instance: AxiosRequest
   private readonly service: AxiosInstance
   private config: RequestConfig = {
-    baseURL: 'http://localhost',
+    baseURL: process.env.TARO_APP_API,
     timeout: 10000,
     headers: {
       'Content-Type': 'application/json;charset=utf-8',

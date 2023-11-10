@@ -1,6 +1,6 @@
 # taro-react-starter
 
-开箱即用的基于`Taro3` + `React` + `Zustand` + `TailwindCSS` + `TypeScript`的模板
+一个开箱即用的基于`Taro3` + `React` + `Zustand` + `TailwindCSS` + `TypeScript`的项目模板
 
 这个工程的搭建笔记可以[在这里查看](https://welives.github.io/blog/front-end/engineering/taro/create-react.html)
 

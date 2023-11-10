@@ -9,7 +9,7 @@ function getItem<T = any>(key: string): T {
   const value = getStorageSync(key)
   return value ? JSON.parse(value) ?? null : null
 }
-function setItem<T = any>(key: string, value: T) {
+function setItem(key: string, value: any) {
   setStorageSync(key, JSON.stringify(value))
 }
 function removeItem(key: string) {

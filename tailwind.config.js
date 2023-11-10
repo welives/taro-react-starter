@@ -10,8 +10,8 @@ module.exports = {
   theme: {
     extend: { colors },
   },
-  plugins: [],
   corePlugins: {
     preflight: false,
   },
+  plugins: [],
 }
