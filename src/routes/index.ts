@@ -119,5 +119,5 @@ class Router {
 // 需要权限的路由,注意首尾不能带有斜杠
 const authRoutes = ['pages/home/index', 'pages/profile/index']
 // 全部路由
-export const routes = ['pages/blank/index', 'pages/index/index', 'pages/home/index', 'pages/profile/index']
+const routes = ['pages/blank/index', 'pages/index/index', 'pages/home/index', 'pages/profile/index']
 export default Router.instance
