@@ -1,4 +1,5 @@
 import Taro, { EventChannel } from '@tarojs/taro'
+import { useUserStore } from '@/models'
 
 interface IRouterOptions<T = any> {
   url: string
@@ -20,23 +21,14 @@ type RouterType = 'navigateTo' | 'redirectTo' | 'switchTab' | 'reLaunch' | 'navi
 /**
  * 路由跳转处理
  */
-function handleRouter(url: string, type: RouterType, options: RouterOptions) {
-  if (authRoutes.includes(url)) {
-    if (process.env.TARO_ENV === 'weapp') {
-      Taro.getBackgroundFetchToken({
-        success: (res) => {
-          console.log(res)
-          navigate(type, options)
-        },
-        fail: (err) => {
-          console.error(err)
-          // 如果要跳转的页面是需要登录的，但是当前登录状态无效
-          // TODO
-        },
-      })
-    } else {
-      navigate(type, options)
+function handleRouter(urlKey: string, type: RouterType, options: RouterOptions) {
+  const isLogged = useUserStore.getState().isLogged
+  if (authRoutes.includes(urlKey)) {
+    if (!isLogged) {
+      // TODO 补充自己的业务逻辑
+      return
     }
+    navigate(type, options)
   } else {
     navigate(type, options)
   }
@@ -47,6 +39,9 @@ function handleRouter(url: string, type: RouterType, options: RouterOptions) {
 function navigate(type: RouterType, options: RouterOptions) {
   const { data, ...rest } = options
   if (!Taro.hasOwnProperty(type)) return
+  if (!rest.url.startsWith('/')) {
+    rest.url = `/${rest.url}`
+  }
   Taro[type](rest)
 }
 
@@ -68,7 +63,11 @@ class Router {
    */
   private middleware(type: RouterType, options: RouterOptions) {
     let { url = '', data = {}, events, ...rest } = options
-    const key = url.replace(/^\/*(.*?)(\/*)$/g, '$1') // 单独存一份url,待会要用
+    // 单独存一份url,待会要用
+    const key = url
+      .split('/')
+      .filter((e) => e !== '')
+      .join('/')
     try {
       if (type === 'navigateBack') {
         Taro.navigateBack(rest)
