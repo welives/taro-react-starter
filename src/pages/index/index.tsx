@@ -1,17 +1,33 @@
 import { View, Button } from '@tarojs/components'
 import { request } from '@/api'
-import { useUserStore } from '@/models'
-import router from '@/routes'
+import { useUserStore, useAuthStore, useAuthReset } from '@/models'
+import router from '@/router'
 import './index.scss'
 
 export default function Index() {
   const setToken = useUserStore.use.setToken()
+  const auth = useAuthStore()
   const login = async () => {
     const res = await request('/api/login', {
       method: 'POST',
     })
     setToken(res.data)
-    router.switchTab({ url: '/pages/home/index' })
+    if (auth.redirect?.url) {
+      const success = () => {
+        useAuthReset()
+      }
+      auth.redirect.tab
+        ? router.switchTab({
+            url: auth.redirect.url,
+            success,
+          })
+        : router.redirectTo({
+            url: auth.redirect.url,
+            success,
+          })
+    } else {
+      router.switchTab({ url: '/pages/home/index' })
+    }
   }
 
   return (

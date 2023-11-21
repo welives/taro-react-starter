@@ -1,8 +1,10 @@
 import { View, Text, Button } from '@tarojs/components'
 import { useCounterStore } from '@/models'
+import { useAuth } from '@/hooks'
 import './index.scss'
 
 export default function Profile() {
+  useAuth()
   const { count, inc, dec } = useCounterStore()
 
   return (

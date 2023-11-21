@@ -1,6 +1,6 @@
 import { useLoad } from '@tarojs/taro'
 import { useUserStore } from '@/models'
-import router from '@/routes'
+import router from '@/router'
 export default function Blank() {
   const isLogged = useUserStore.use.isLogged()
   useLoad(() => {

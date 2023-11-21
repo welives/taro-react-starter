@@ -1,8 +1,9 @@
 import { setStorageSync, getStorageSync, removeStorageSync } from '@tarojs/taro'
+import { StateStorage } from 'zustand/middleware'
 
 enum StorageSceneKey {
-  DEVICE = 'storage-device-uuid',
   USER = 'storage-user',
+  AUTH = 'storage-auth',
 }
 
 function getItem<T = any>(key: string): T {
@@ -17,3 +18,17 @@ function removeItem(key: string) {
 }
 
 export { getItem, setItem, removeItem, StorageSceneKey }
+
+/** @description 用来给 zustand 持久化存储的方法 */
+export const zustandStorage: StateStorage = {
+  getItem: (key: string) => {
+    const value = getStorageSync(key)
+    return value ?? null
+  },
+  setItem: (key: string, value) => {
+    setStorageSync(key, value)
+  },
+  removeItem: (key: string) => {
+    removeStorageSync(key)
+  },
+}
