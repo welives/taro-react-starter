@@ -1,2 +1,2 @@
 export * from './storage'
-export { default as Helper } from './helper'
+export { default as utils } from './utils'
