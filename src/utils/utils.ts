@@ -234,5 +234,30 @@ class Utils {
       reader.readAsDataURL(blob)
     }).then(cb)
   }
+  /** @description 洗牌算法 */
+  shuffle = (arr: any[]) => {
+    const res: any[] = []
+    let random
+    while (arr.length > 0) {
+      random = Math.floor(Math.random() * arr.length)
+      res.push(arr.splice(random, 1)[0])
+    }
+    return res
+  }
+  /** @description 深拷贝 */
+  deepClone = (source: any, cache = new WeakMap()) => {
+    if (typeof source !== 'object' || source === null) return source
+    if (cache.has(source)) return cache.get(source)
+    const target = Array.isArray(source) ? [] : {}
+    Reflect.ownKeys(source).forEach((key) => {
+      const val = source[key]
+      if (typeof val === 'object' && val !== null) {
+        target[key] = this.deepClone(val, cache)
+      } else {
+        target[key] = val
+      }
+    })
+    return target
+  }
 }
 export default Utils.instance
