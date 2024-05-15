@@ -1,5 +1,5 @@
-import { setStorageSync, getStorageSync, removeStorageSync } from '@tarojs/taro'
-import { StateStorage } from 'zustand/middleware'
+import { getStorageSync, removeStorageSync, setStorageSync } from '@tarojs/taro'
+import type { StateStorage } from 'zustand/middleware'
 
 enum StorageSceneKey {
   USER = 'storage-user',

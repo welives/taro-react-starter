@@ -1,5 +1,3 @@
-import mockjs from 'mockjs'
-
 export default {
   'POST /api/login': {
     code: '200',

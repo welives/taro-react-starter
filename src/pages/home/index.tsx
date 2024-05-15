@@ -1,5 +1,5 @@
-import { View, Text, Button } from '@tarojs/components'
-import { useCounterStore, useCounterReset } from '@/models'
+import { Button, Text, View } from '@tarojs/components'
+import { useCounterReset, useCounterStore } from '@/models'
 import { useAuth } from '@/hooks'
 import './index.scss'
 

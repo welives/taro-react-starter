@@ -1,9 +1,10 @@
-import { useDidShow, getCurrentInstance } from '@tarojs/taro'
-import { useUserStore, useAuthStore } from '../models'
+import { getCurrentInstance, useDidShow } from '@tarojs/taro'
+import { useAuthStore, useUserStore } from '../models'
 import router from '../router'
+
 const tabbar = ['/pages/home/index', '/pages/profile/index']
 
-export const useAuth = () => {
+export function useAuth() {
   const isLogged = useUserStore.use.isLogged()
   const setRedirect = useAuthStore.use.setRedirect()
   const current = getCurrentInstance().router
@@ -12,9 +13,8 @@ export const useAuth = () => {
   const routeParams = current?.params
   const params = {}
   for (const [key, value] of Object.entries(routeParams ?? {})) {
-    if (!['stamp', '$taroTimestamp'].includes(key)) {
+    if (!['stamp', '$taroTimestamp'].includes(key))
       params[key] = value
-    }
   }
   useDidShow(() => {
     if (!isLogged) {

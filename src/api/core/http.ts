@@ -1,6 +1,6 @@
 // @ts-expect-error
 import utils from 'axios/unsafe/utils'
-import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError, InternalAxiosRequestConfig } from 'axios'
+import type { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import axios from 'axios'
 import requestConfig from './config'
 
@@ -60,25 +60,27 @@ class AxiosRequest {
       'Content-Type': 'application/json;charset=utf-8',
     },
   }
+
   constructor(enforcer: any) {
-    if (enforcer !== singletonEnforcer) {
+    if (enforcer !== singletonEnforcer)
       throw new Error('Cannot initialize Axios client single instance')
-    }
+
     this.mergeConfig()
     this.service = axios.create(this.config)
     // 请求拦截
     this.config?.requestInterceptors?.forEach((interceptor) => {
-      interceptor instanceof Array
+      Array.isArray(interceptor)
         ? this.service.interceptors.request.use(interceptor[0], interceptor[1])
         : this.service.interceptors.request.use(interceptor)
     })
     // 响应拦截
     this.config?.responseInterceptors?.forEach((interceptor) => {
-      interceptor instanceof Array
+      Array.isArray(interceptor)
         ? this.service.interceptors.response.use(interceptor[0], interceptor[1])
         : this.service.interceptors.response.use(interceptor)
     })
   }
+
   /**
    * 创建唯一实例
    */
@@ -87,12 +89,14 @@ class AxiosRequest {
     this._instance || (this._instance = new AxiosRequest(singletonEnforcer))
     return this._instance
   }
+
   /**
    * 合并请求参数
    */
   private mergeConfig() {
     this.config = utils.merge(this.config, requestConfig)
   }
+
   /**
    * 获取需要移除的拦截器
    * @param opts
@@ -103,22 +107,23 @@ class AxiosRequest {
   }) {
     const { requestInterceptors, responseInterceptors } = opts
     const requestInterceptorsToEject = requestInterceptors?.map((interceptor) => {
-      return interceptor instanceof Array
+      return Array.isArray(interceptor)
         ? this.service.interceptors.request.use(interceptor[0], interceptor[1])
         : this.service.interceptors.request.use(interceptor)
     })
     const responseInterceptorsToEject = (responseInterceptors as IResponseInterceptorTuple[])?.map((interceptor) => {
-      return interceptor instanceof Array
+      return Array.isArray(interceptor)
         ? this.service.interceptors.response.use(interceptor[0], interceptor[1])
         : this.service.interceptors.response.use(interceptor)
     })
     return { requestInterceptorsToEject, responseInterceptorsToEject }
   }
+
   /**
    * 移除拦截器
    * @param opts
    */
-  private removeInterceptors(opts: { requestInterceptorsToEject?: number[]; responseInterceptorsToEject?: number[] }) {
+  private removeInterceptors(opts: { requestInterceptorsToEject?: number[], responseInterceptorsToEject?: number[] }) {
     const { requestInterceptorsToEject, responseInterceptorsToEject } = opts
     requestInterceptorsToEject?.forEach((interceptor) => {
       this.service.interceptors.request.eject(interceptor)
@@ -127,6 +132,7 @@ class AxiosRequest {
       this.service.interceptors.response.eject(interceptor)
     })
   }
+
   /**
    * 基础请求
    * @param url 接口地址
@@ -149,15 +155,19 @@ class AxiosRequest {
           this.removeInterceptors({ requestInterceptorsToEject, responseInterceptorsToEject })
           try {
             const handler = this.config?.errorConfig?.errorHandler
-            if (handler) handler(error, opts)
-          } catch (e) {
+            if (handler)
+              handler(error, opts)
+          }
+          catch (e) {
             reject(e)
-          } finally {
+          }
+          finally {
             reject(error) // 如果不想把错误传递到方法调用处的话就去掉这个 finally
           }
         })
     })
   }
+
   /**
    * 上传
    * @param url 接口地址
@@ -181,15 +191,19 @@ class AxiosRequest {
           this.removeInterceptors({ requestInterceptorsToEject, responseInterceptorsToEject })
           try {
             const handler = this.config?.errorConfig?.errorHandler
-            if (handler) handler(error, opts)
-          } catch (e) {
+            if (handler)
+              handler(error, opts)
+          }
+          catch (e) {
             reject(e)
-          } finally {
+          }
+          finally {
             reject(error)
           }
         })
     })
   }
+
   /**
    * 下载
    * @param url 资源地址
@@ -213,10 +227,13 @@ class AxiosRequest {
           this.removeInterceptors({ requestInterceptorsToEject, responseInterceptorsToEject })
           try {
             const handler = this.config?.errorConfig?.errorHandler
-            if (handler) handler(error, opts)
-          } catch (e) {
+            if (handler)
+              handler(error, opts)
+          }
+          catch (e) {
             reject(e)
-          } finally {
+          }
+          finally {
             reject(error)
           }
         })

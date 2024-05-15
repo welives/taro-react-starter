@@ -1,8 +1,8 @@
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 import { createJSONStorage, persist } from 'zustand/middleware'
+import { StorageSceneKey, zustandStorage } from '../libs'
 import createSelectors from './selectors'
-import { zustandStorage, StorageSceneKey } from '../utils'
 
 interface Redirect {
   url: string
@@ -21,14 +21,14 @@ const store = create<State & Action>()(
     persist(
       (set, get) => ({
         redirect: null,
-        setRedirect: (value) => set({ redirect: value }),
+        setRedirect: value => set({ redirect: value }),
       }),
       {
         name: StorageSceneKey.AUTH,
         storage: createJSONStorage(() => zustandStorage),
-      }
-    )
-  )
+      },
+    ),
+  ),
 )
 
 export const useAuthStore = createSelectors(store)

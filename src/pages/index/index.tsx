@@ -1,6 +1,6 @@
-import { View, Button } from '@tarojs/components'
+import { Button, View } from '@tarojs/components'
 import { request } from '@/api'
-import { useUserStore, useAuthStore, useAuthReset } from '@/models'
+import { useAuthReset, useAuthStore, useUserStore } from '@/models'
 import router from '@/router'
 import './index.scss'
 
@@ -18,14 +18,15 @@ export default function Index() {
       }
       auth.redirect.tab
         ? router.switchTab({
-            url: auth.redirect.url,
-            success,
-          })
+          url: auth.redirect.url,
+          success,
+        })
         : router.redirectTo({
-            url: auth.redirect.url,
-            success,
-          })
-    } else {
+          url: auth.redirect.url,
+          success,
+        })
+    }
+    else {
       router.switchTab({ url: '/pages/home/index' })
     }
   }
